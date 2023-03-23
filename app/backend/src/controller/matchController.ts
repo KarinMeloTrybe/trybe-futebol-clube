@@ -7,4 +7,16 @@ const getAllMatches = async (request: Request, response: Response) => {
   return response.status(200).json(message);
 };
 
-export default { getAllMatches };
+const finishMatch = async (request: Request, response: Response) => {
+  const { id } = request.params;
+  const { type, message } = await matchService.finishMatch(id);
+  if (!type) {
+    return response.status(200).json({ message: 'Finished' });
+  }
+  return response.status(404).json({ message });
+};
+
+export default {
+  getAllMatches,
+  finishMatch,
+};

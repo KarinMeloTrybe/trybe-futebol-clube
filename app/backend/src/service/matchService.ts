@@ -14,4 +14,18 @@ const getAllMatches = async (inProgress?: string) => {
   return { type: null, message: matches };
 };
 
-export default { getAllMatches };
+const finishMatch = async (id: string) => {
+  const matchExist = await Match.findOne({
+    where: { id: Number(id) },
+  });
+  if (matchExist) {
+    await Match.update({ inProgress: false }, { where: { id: Number(id) } });
+    return { type: null, message: 'Finished' };
+  }
+  return { type: 'Not Found', message: 'Not found' };
+};
+
+export default {
+  getAllMatches,
+  finishMatch,
+};

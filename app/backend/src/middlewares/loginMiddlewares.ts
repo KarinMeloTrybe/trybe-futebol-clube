@@ -6,12 +6,8 @@ const validationPassword = (request: Request, response: Response, next: NextFunc
   if (!password) {
     return response.status(400).json({ message: 'All fields must be filled' });
   }
-  if (typeof password !== 'string') {
+  if (typeof password !== 'string' || password.length < 6) {
     return response.status(401).json({ message });
-  }
-  if (password.length < 6) {
-    return response.status(401).json({
-      message });
   }
   return next();
 };
@@ -22,12 +18,8 @@ const validationEmail = (request: Request, response: Response, next: NextFunctio
   if (!email) {
     return response.status(400).json({ message: 'All fields must be filled' });
   }
-  if (typeof email !== 'string') {
+  if (typeof email !== 'string' || !regex.test(email)) {
     return response.status(401).json({ message });
-  }
-  if (!regex.test(email)) {
-    return response.status(401).json({
-      message });
   }
   return next();
 };

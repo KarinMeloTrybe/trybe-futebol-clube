@@ -8,4 +8,6 @@ matchRoute.get('/', matchController.getAllMatches);
 
 matchRoute.patch('/:id/finish', validationToken, matchController.finishMatch);
 
+matchRoute.patch('/:id', validationToken, matchController.editMatch);
+
 export default matchRoute;

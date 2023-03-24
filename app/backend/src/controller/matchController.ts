@@ -16,7 +16,18 @@ const finishMatch = async (request: Request, response: Response) => {
   return response.status(404).json({ message });
 };
 
+const editMatch = async (request: Request, response: Response) => {
+  const { id } = request.params;
+  const { homeTeamGoals, awayTeamGoals } = request.body;
+  const { type, message } = await matchService.editMatch(id, homeTeamGoals, awayTeamGoals);
+  if (!type) {
+    return response.status(200).json({ message });
+  }
+  return response.status(404).json({ message });
+};
+
 export default {
   getAllMatches,
   finishMatch,
+  editMatch,
 };

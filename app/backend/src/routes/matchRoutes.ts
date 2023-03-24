@@ -10,4 +10,6 @@ matchRoute.patch('/:id/finish', validationToken, matchController.finishMatch);
 
 matchRoute.patch('/:id', validationToken, matchController.editMatch);
 
+matchRoute.post('/', validationToken, matchController.newMatch);
+
 export default matchRoute;

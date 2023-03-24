@@ -26,8 +26,26 @@ const editMatch = async (request: Request, response: Response) => {
   return response.status(404).json({ message });
 };
 
+const newMatch = async (request: Request, response: Response) => {
+  const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = request.body;
+  if (homeTeamId === awayTeamId) {
+    return response.status(422).json({
+      message: 'It is not possible to create a match with two equal teams',
+    });
+  }
+  const { type, message } = await matchService.newMatch(
+    homeTeamId,
+    awayTeamId,
+    homeTeamGoals,
+    awayTeamGoals,
+  );
+  if (!type) return response.status(201).json(message);
+  return response.status(404).json({ message });
+};
+
 export default {
   getAllMatches,
   finishMatch,
   editMatch,
+  newMatch,
 };

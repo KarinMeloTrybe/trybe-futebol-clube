@@ -25,25 +25,39 @@ const finishMatch = async (id: string) => {
   return { type: 'Not Found', message: 'Not found' };
 };
 
-const editMatch = async (id: string, homeTeamGoals: string, awayTeamGoals: string) => {
+const editMatch = async (
+  id: string,
+  homeTeamGoals: string,
+  awayTeamGoals: string,
+) => {
   await Match.update({
     homeTeamGoals, awayTeamGoals }, { where: { id: Number(id) } });
   return { type: null, message: { homeTeamGoals, awayTeamGoals } };
 };
 
-/* const editMatch =  async (id: string, homeTeamGoals: string, awayTeamGoals: string) => {
-  const match = await Match.findOne({
-    where: { id: Number(id) },
-  });
-  if (match) {
-    await Match.update({ inProgress: true }, {
-      homeTeamGoals, awayTeamGoals }/* , { where: { id: Number(id) } });
-    return { type: null, message: 'Finished' };
-  return { type: 'Not Found', message: 'Not found' };
-}; */
+const newMatch = async (
+  homeTeamId: string,
+  awayTeamId: string,
+  homeTeamGoals: string,
+  awayTeamGoals: string,
+) => {
+  try {
+    const createdMatch = await Match.create({
+      homeTeamId,
+      awayTeamId,
+      homeTeamGoals,
+      awayTeamGoals,
+      inProgress: true,
+    });
+    return { type: null, message: createdMatch.dataValues };
+  } catch (error) {
+    return { type: error, message: 'There is no team with such id!' };
+  }
+};
 
 export default {
   getAllMatches,
   finishMatch,
   editMatch,
+  newMatch,
 };

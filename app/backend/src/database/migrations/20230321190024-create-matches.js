@@ -9,9 +9,25 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      home_team_id: Sequelize.INTEGER,
+      home_team_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        onDelete: "CASCADE",
+        references: {
+          model: "teams",
+          key: "id",
+        }
+      } ,
       home_team_goals: Sequelize.INTEGER,
-      away_team_id: Sequelize.INTEGER,
+      away_team_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        onDelete: "CASCADE",
+        references: {
+          model: "teams",
+          key: "id",
+        }
+      },
       away_team_goals: Sequelize.INTEGER,
       in_progress: Sequelize.BOOLEAN,
     })

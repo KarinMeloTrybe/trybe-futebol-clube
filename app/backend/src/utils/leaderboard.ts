@@ -88,7 +88,7 @@ const newMatch: ITotalPerformance = {
   totalGames: 0,
   totalLosses: 0,
   totalVictories: 0,
-};
+} as const;
 
 const filterLocation = (teamPerformance: IPerformance[], location?: 'home' | 'away') => {
   if (!location) {
